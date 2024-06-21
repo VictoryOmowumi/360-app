@@ -1,0 +1,115 @@
+ <div className="flex flex-col gap-2">
+          <label className="text-lg font-semibold">
+            Select Assessment Type
+          </label>
+          <select
+            className="p-2 border border-gray-300 rounded focus:border-gray-200 focus:outline-none"
+            value={assessmentType}
+            onChange={handleAssessmentTypeChange}
+          >
+            <option value="Review">Review</option>
+            <option value="Survey">Survey</option>
+          </select>
+        </div>
+
+        {assessmentType === "Review" && (
+          <div className="flex flex-col gap-4">
+            <h3>Review Form</h3>
+            <div className="flex flex-col gap-2">
+              <label>Select Subject for Review</label>
+              <input type="text" placeholder="Search and select employee" />
+            </div>
+            <div className="flex flex-col gap-2">
+              <label
+                className="text-lg font-semibold"
+                style={{ color: theme === "dark" ? "#f5f5f5" : "#444" }}
+              >Review Cycle</label>
+
+              <select
+                className="p-2 border border-gray-300 rounded focus:border-gray-200 focus:outline-none"
+              >
+                <option value="HalfYear">Half Year</option>
+                <option value="FullYear">Full Year</option>
+                {/* Add more options as needed */}
+              </select>
+            </div>
+            <div className="flex">
+
+            <div className="flex flex-col gap-2">
+            <label
+              className="text-lg font-semibold"
+              style={{ color: theme === "dark" ? "#f5f5f5" : "#444" }}
+            >
+              Add Responders
+            </label>
+              <input type="text" placeholder="Add responders' email" />
+            </div>
+
+            <div className="flex flex-col gap-2">
+            <label
+              className="text-lg font-semibold"
+              style={{ color: theme === "dark" ? "#f5f5f5" : "#444" }}
+              >
+              Role
+            </label>
+              <select className="p-2 border border-gray-300 rounded focus:border-gray-200 focus:outline-none">
+                <option value="Manager">Manager</option>
+                <option value="Peer">Peer</option>
+                <option value="Self">Self</option>
+              </select>
+            </div>
+            </div>
+
+            <div className="flex flex-col gap-2">
+              <button onClick={handleAddResponder}>Add</button>
+            </div>
+
+            {
+                respondersList.length > 0 && (
+                    <div className="flex flex-col gap-2 border-dotted">
+                        <h3>Responders</h3>
+                        <ul>
+                            {respondersList.map((responder, index) => (
+                                <li key={index}>
+                                    <span>{responder.email}</span>
+                                    <span>{responder.role}</span>
+                                    <button onClick={() => handleRemoveResponder(index)}>Remove</button>
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+                )
+            }
+
+
+            <button>Send</button>
+          </div>
+        )}
+
+        {assessmentType === "Survey" && (
+          <div>
+            {/* Survey Form */}
+            <h3>Survey Form</h3>
+            <label>
+              Select Survey:
+              <select>
+                <option value="Survey1">Survey 1</option>
+                <option value="Survey2">Survey 2</option>
+                {/* Add more options as needed */}
+              </select>
+            </label>
+            <label>
+              Select Group:
+              <select>
+                <option value="Group1">Group 1</option>
+                <option value="Group2">Group 2</option>
+                {/* Add more options as needed */}
+              </select>
+            </label>
+            <button>Send</button>
+          </div>
+        )}
+
+
+
+        <iframe src="data:text/html;base64,PGh0bWw+CiAgICAgICAgPGhlYWQ+CiAgICAgICAgICAgIDxtZXRhIG5hbWU9InZpZXdwb3J0IiBjb250ZW50PSJ3aWR0aD1kZXZpY2Utd2lkdGgsIGluaXRpYWwtc2NhbGU9MSI+CiAgICAgICAgICAgIDxzdHlsZT4KICAgICAgICAgICAgICAgIGh0bWwsIGJvZHl7CiAgICAgICAgICAgICAgICAgICAgbWFyZ2luOiAwOwogICAgICAgICAgICAgICAgICAgIHBhZGRpbmc6IDA7CiAgICAgICAgICAgICAgICAgICAgd2lkdGg6IDEwMCU7CiAgICAgICAgICAgICAgICAgICAgaGVpZ2h0OiAxMDAlOwogICAgICAgICAgICAgICAgICAgIGJvcmRlcjogMDsKICAgICAgICAgICAgICAgIH0KICAgICAgICAgICAgPC9zdHlsZT4KICAgICAgICAgICAgPHNjcmlwdCB0eXBlPSJpbXBvcnRtYXAiPgp7CiAgICAiaW1wb3J0cyI6IHsKICAgICAgICAicmVhY3QiOiAiaHR0cHM6Ly9jZG4uc2t5cGFjay5kZXYvcmVhY3RAMTguMC4yIiwKICAgICAgICAicmVhY3QtZG9tIjogImh0dHBzOi8vY2RuLnNreXBhY2suZGV2L3JlYWN0LWRvbUAxOC4wLjIiLAogICAgICAgICJ0aHJlZSI6ICJodHRwczovL2Nkbi5za3lwYWNrLmRldi90aHJlZUAwLjE0OC4wIiwKICAgICAgICAicmVhY3QtdGhyZWUvZmliZXIiOiAiaHR0cHM6Ly9jZG4uc2t5cGFjay5kZXYvQHJlYWN0LXRocmVlL2ZpYmVyQDcuMC4yNCIKICAgIH0KfQo8L3NjcmlwdD4KPHN0eWxlPgogICAgaHRtbCwgYm9keXsKICAgICAgICBtYXJnaW46IDA7CiAgICAgICAgcGFkZGluZzogMDsKICAgICAgICB3aWR0aDogMTAwJTsKICAgICAgICBoZWlnaHQ6IDEwMCU7CiAgICAgICAgYm9yZGVyOiAwOwogICAgfQogICAgLm50LWVtYmVkewogICAgICAgIHdpZHRoOiAxMDAlOwogICAgICAgIGhlaWdodDogMTAwJTsKICAgIH0KICAgIC5udC1lbWJlZCBjYW52YXN7CiAgICAgICAgd2lkdGg6IDEwMCU7CiAgICAgICAgaGVpZ2h0OiAxMDAlOwogICAgfQo8L3N0eWxlPgo8c2NyaXB0IHR5cGU9Im1vZHVsZSI+CiAgICBpbXBvcnQgUmVhY3QsIHt1c2VSZWYsdXNlTWVtb30gZnJvbSAncmVhY3QnOwogICAgaW1wb3J0IFJlYWN0RE9NIGZyb20gJ3JlYWN0LWRvbSc7CiAgICBpbXBvcnQgKiBhcyBUSFJFRSBmcm9tICd0aHJlZSc7CiAgICBpbXBvcnQge0NhbnZhcywgdXNlRnJhbWUsIHVzZVRocmVlfSBmcm9tICdyZWFjdC10aHJlZS9maWJlcic7CgogICAgbGV0IGVtYmVkUm9vdCA9IGRvY3VtZW50LmNyZWF0ZUVsZW1lbnQoJ2RpdicpOwogICAgZW1iZWRSb290LmNsYXNzTmFtZSA9ICJudC1lbWJlZCI7CiAgICBkb2N1bWVudC5ib2R5LmFwcGVuZENoaWxkKGVtYmVkUm9vdCk7CgogICAgY29uc3QgVGV4dHVyZU1lc2ggPSAoKSA9PiB7CiAgICAgICAgY29uc3QgbWVzaCA9IHVzZVJlZihudWxsKQogICAgICAgIHVzZUZyYW1lKHN0YXRlID0+IHsKICAgICAgICAgICAgY29uc3QgeyBjbG9jaywgbW91c2UsIGdsLCBzY2VuZSwgY2FtZXJhIH0gPSBzdGF0ZQogICAgICAgICAgICBpZihtZXNoLmN1cnJlbnQpewogICAgICAgICAgICAgICAgbWVzaC5jdXJyZW50Lm1hdGVyaWFsLnVuaWZvcm1zLnVfbW91c2UudmFsdWUgPSBbbW91c2UueCAvIDIgKyAwLjUsIG1vdXNlLnkgLyAyICsgMC41XQogICAgICAgICAgICAgICAgbWVzaC5jdXJyZW50Lm1hdGVyaWFsLnVuaWZvcm1zLnVfdGltZS52YWx1ZSA9IGNsb2NrLmdldEVsYXBzZWRUaW1lKCkKICAgICAgICAgICAgICAgIGxldCBjID0gZ2wuZG9tRWxlbWVudC5nZXRCb3VuZGluZ0NsaWVudFJlY3QoKQogICAgICAgICAgICAgICAgbWVzaC5jdXJyZW50Lm1hdGVyaWFsLnVuaWZvcm1zLnVfcmVzb2x1dGlvbi52YWx1ZSA9IFtjLndpZHRoLGMuaGVpZ2h0XQogICAgICAgICAgICB9CiAgICAgICAgfSkKICAgICAgICAKICAgICAgICByZXR1cm4gUmVhY3QuY3JlYXRlRWxlbWVudCgnbWVzaCcsCiAgICAgICAgICAgIHsKICAgICAgICAgICAgICAgIHJlZjptZXNoLAogICAgICAgICAgICAgICAgcG9zaXRpb246IFswLDAsMF0sCiAgICAgICAgICAgICAgICBzY2FsZTogMSwKICAgICAgICAgICAgICAgIHJvdGF0aW9uOiBbMCwwLDBdCiAgICAgICAgICAgIH0sCiAgICAgICAgICAgIFJlYWN0LmNyZWF0ZUVsZW1lbnQoJ3BsYW5lR2VvbWV0cnknLHthcmdzOlsyNDAsNTgwXX0pLCAKICAgICAgICAgICAgUmVhY3QuY3JlYXRlRWxlbWVudCgnc2hhZGVyTWF0ZXJpYWwnLHsKICAgICAgICAgICAgICAgIGZyYWdtZW50U2hhZGVyOiBgCiAgICB1bmlmb3JtIHZlYzIgdV9yZXNvbHV0aW9uOwogICAgdW5pZm9ybSB2ZWMyIHVfbW91c2U7CiAgICB1bmlmb3JtIGZsb2F0IHVfdGltZTsKICAgIHVuaWZvcm0gdmVjMyB1X2NvbG9yOwogICAgdW5pZm9ybSBmbG9hdCB1X3NpemU7IC8vdW5pdHM6cHgsIG1pbjoyLCBtYXg6IDEyOCwgc3RlcDoxCiAgICB1bmlmb3JtIGZsb2F0IHVfc21vb3RobmVzczsKICAgIHVuaWZvcm0gZmxvYXQgdV93aWR0aDsKICAgIHVuaWZvcm0gZmxvYXQgdV9kaXN0YW5jZTsKICAgIHVuaWZvcm0gZmxvYXQgdV9hYV9wYXNzZXM7IC8vaWdub3JlOnRydWUKICAgIAogICAgZmxvYXQgc3RhaXJzUGF0dGVybih2ZWMyIHBvcywgdmVjMiBzY2FsZSwgZmxvYXQgd2lkdGgsIGZsb2F0IHNtb290aG5lc3MsIGZsb2F0IGRpc3RhbmNlKQogICAgewogICAgICAgIHZlYzIgcCA9IHBvcyAqIHNjYWxlOwogICAgICAgIHZlYzIgZiA9IGZyYWN0KHApOwoKICAgICAgICB2ZWMyIG0gPSBmbG9vcihtb2QocCwgdmVjMigyLjApKSk7CiAgICAgICAgZmxvYXQgZCA9IG1peChmLngsIGYueSwgYWJzKG0ueCAtIG0ueSkpOwogICAgICAgIGQgPSBtaXgoZCwgYWJzKGQgKiAyLjAgLSAxLjApLCBkaXN0YW5jZSk7CgogICAgICAgIHJldHVybiAxLjAgLSBzbW9vdGhzdGVwKG1heCh3aWR0aCAtIHNtb290aG5lc3MsIDAuMCksIHdpZHRoLCBkKTsKICAgIH0KICAgICAgICAgICAgICAgIAogICAgICB2ZWM0IGZyYWdtZW50Q29sb3IoaW4gdmVjMiBmcmFnQ29vcmQpewogICAgICAgIHZlYzIgdXYgPSBmcmFnQ29vcmQueHkgLyB1X3Jlc29sdXRpb24ueDsKICAgICAgICB2ZWMyIHAgPSBmcmFjdCh1dik7CiAgICAgICAgdmVjMiBzY2FsZSA9IHZlYzIoaW50KHVfcmVzb2x1dGlvbi54IC8gdV9zaXplLzguKSk7ICAgIAogICAgICAgIAogICAgICAgIC8vZmxvYXQgc3RhaXJzUGF0dGVybih2ZWMyIHBvcywgdmVjMiBzY2FsZSwgZmxvYXQgd2lkdGgsIGZsb2F0IHNtb290aG5lc3MsIGZsb2F0IGRpc3RhbmNlKSAgIAoKICAgICAgICBmbG9hdCB2YWx1ZSA9IHN0YWlyc1BhdHRlcm4ocCwgc2NhbGUsIHVfd2lkdGgsIC8qIGZsb2F0IHNtb290aG5lc3MqLyB1X3Ntb290aG5lc3MsIHVfZGlzdGFuY2UpOwogICAgICAgIAogICAgICAgIHJldHVybiB2ZWM0KHVfY29sb3IsdmFsdWUpOyAKICAgICAgfQogICAgICAKICAgICAgdm9pZCBtYWluKCkKICAgICAgewogICAgICAgIC8vIEFudGlhbGlhc2luZyBjb2RlCiAgICAgICAgdmVjNCBmcmFnQ29sb3IgPSB2ZWM0KDAuMCk7CiAgICAgICAgZmxvYXQgQSA9IHVfYWFfcGFzc2VzLCAgLy8gQ2hhbmdlIEEgdG8gZGVmaW5lIHRoZSBsZXZlbCBvZiBhbnRpLWFsaWFzaW5nICgxIHRvIDE2KSAuLi4gaGlnaGVyIG51bWJlcnMgYXJlIFJFQUxMWSBzbG93IQogICAgICAgICAgICAgIHMgPSAxLi9BLCB4LCB5OwogICAgICAgIGZvciAoeD0tLjU7IHg8LjU7IHgrPXMpIGZvciAoeT0tLjU7IHk8LjU7IHkrPXMpIGZyYWdDb2xvciArPSBtaW4gKCBmcmFnbWVudENvbG9yKHZlYzIoeCx5KStnbF9GcmFnQ29vcmQueHkpLCAxLjApOwogICAgICAgICAgICAKICAgICAgICBmcmFnQ29sb3IgLz0gQSpBOwogICAgICAgIAogICAgICAgIGdsX0ZyYWdDb2xvciA9IGZyYWdDb2xvcjsKICAgICAgfWAsCiAgICAgICAgICAgICAgICB2ZXJ0ZXhTaGFkZXI6IGAKICAgICAgICAgICAgdm9pZCBtYWluKCkgewogICAgICAgICAgICAgICAgZ2xfUG9zaXRpb24gPSBwcm9qZWN0aW9uTWF0cml4ICogbW9kZWxWaWV3TWF0cml4ICogdmVjNChwb3NpdGlvbiwgMS4wKTsKICAgICAgICB9YCwKICAgICAgICAgICAgICAgIHVuaWZvcm1zOiB7dV9zaXplOiB7dmFsdWU6IDU2fSx1X3Ntb290aG5lc3M6IHt2YWx1ZTogMH0sdV9kaXN0YW5jZToge3ZhbHVlOiAwfSx1X3dpZHRoOiB7dmFsdWU6IDAuMjV9LHVfYWFfcGFzc2VzOiB7dmFsdWU6IDJ9LHVfY29sb3I6IHt2YWx1ZTogWzEsMSwxXX0sdV90aW1lOiB7dmFsdWU6IDB9LHVfbW91c2U6IHt2YWx1ZTogWzAsMF19LHVfcmVzb2x1dGlvbjoge3ZhbHVlOiBbMjQwLDU4MF19fSwKICAgICAgICAgICAgICAgIHdpcmVmcmFtZTogZmFsc2UsIAogICAgICAgICAgICAgICAgd2lyZWZyYW1lTGluZXdpZHRoOiAwLAogICAgICAgICAgICAgICAgZGl0aGVyaW5nOiBmYWxzZSwKICAgICAgICAgICAgICAgIGZsYXRTaGFkaW5nOiB0cnVlLAogICAgICAgICAgICAgICAgZG91YmxlU2lkZWQ6IHRydWUsCiAgICAgICAgICAgICAgICBnbHNsVmVyc2lvbjogIjEwMCIKICAgICAgICAgICAgfSkKICAgICAgICApOyAgCiAgICB9CgogICAgUmVhY3RET00ucmVuZGVyKFJlYWN0LmNyZWF0ZUVsZW1lbnQoQ2FudmFzLHsKICAgICAgICAgICAgZ2w6IHsKICAgICAgICAgICAgICAgIHByZXNlcnZlRHJhd2luZ0J1ZmZlcjogdHJ1ZSwKICAgICAgICAgICAgICAgIHByZW11bHRpcGxpZWRBbHBoYTogZmFsc2UsCiAgICAgICAgICAgICAgICBhbHBoYTogdHJ1ZSwKICAgICAgICAgICAgICAgIHRyYW5zcGFyZW50OiB0cnVlLAogICAgICAgICAgICAgICAgYW50aWFsaWFzOiB0cnVlLAogICAgICAgICAgICAgICAgcHJlY2lzaW9uOiAiaGlnaHAiLAogICAgICAgICAgICAgICAgcG93ZXJQcmVmZXJlbmNlOiAiaGlnaC1wZXJmb3JtYW5jZSIKICAgICAgICAgICAgfSwKICAgICAgICAgICAgcmVzaXplOnsKICAgICAgICAgICAgICAgIGRlYm91bmNlOiAwLAogICAgICAgICAgICAgICAgc2Nyb2xsOiBmYWxzZSwKICAgICAgICAgICAgICAgIG9mZnNldFNpemU6IHRydWUKICAgICAgICAgICAgfSwKICAgICAgICAgICAgZHByOiAxLAogICAgICAgICAgICBjYW1lcmE6IHsKICAgICAgICAgICAgICAgIGZvdjogNzUsCiAgICAgICAgICAgICAgICBuZWFyOiAwLjEsCiAgICAgICAgICAgICAgICBmYXI6IDEwMDAsCiAgICAgICAgICAgICAgICBwb3NpdGlvbjogWzAsMCw1XQogICAgICAgICAgICB9LAogICAgICAgICAgICBzdHlsZTp7IGhlaWdodDogIjEwMCUiLCB3aWR0aDogIjEwMCUiIH0KICAgICAgICB9LAogICAgICAgIFJlYWN0LmNyZWF0ZUVsZW1lbnQoVGV4dHVyZU1lc2gpICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICApLCBlbWJlZFJvb3QpOwo8L3NjcmlwdD4KICAgICAgICA8L2hlYWQ+CiAgICAgICAgPGJvZHk+CjwhLS0gQVNTRVQgTk9UIElOTElORUQ6IGFzc2V0cy9ib29rLjVmYjExYjhkLnN2ZyAtLT4KCjwhLS0gQVNTRVQgTk9UIElOTElORUQ6IGFzc2V0cy9seWdpYS5mNzQ5MDU5NC5zdmcgLS0+Cgo8IS0tIEFTU0VUIE5PVCBJTkxJTkVEOiBhc3NldHMvb3ZlcmZsb3cuOGQ1MDQxNWQuc3ZnIC0tPgoKPCEtLSBBU1NFVCBOT1QgSU5MSU5FRDogYXNzZXRzL3RyYXNoLjUyNGRiY2QzLnN2ZyAtLT4KCjwhLS0gQVNTRVQgTk9UIElOTElORUQ6IGFzc2V0cy92ZXJ0aWNhbC45MDYxMDg0OS5zdmcgLS0+Cgo8IS0tIEFTU0VUIE5PVCBJTkxJTkVEOiBhc3NldHMvaG9yaXpvbnRhbC40NGY3NzFmOC5zdmcgLS0+Cgo8IS0tIEFTU0VUIE5PVCBJTkxJTkVEOiBhc3NldHMvYWRkLmE1NTI0MGRkLnN2ZyAtLT4KCjwhLS0gQVNTRVQgTk9UIElOTElORUQ6IGFzc2V0cy9zaWcuODUwYTg1ZTcuc3ZnIC0tPgoKPCEtLSBBU1NFVCBOT1QgSU5MSU5FRDogYXNzZXRzL21pbnVzLjFlMWEwYWJkLnN2ZyAtLT4KCjwhLS0gQVNTRVQgTk9UIElOTElORUQ6IGFzc2V0cy9lZmZlY3QuNDU1NzI0M2Yuc3ZnIC0tPgoKPCEtLSBBU1NFVCBOT1QgSU5MSU5FRDogYXNzZXRzL3Zpc2libGUuYzZkNGUxYzAuc3ZnIC0tPgoKPCEtLSBBU1NFVCBOT1QgSU5MSU5FRDogYXNzZXRzL2hpZGRlbi41YTRmYzI1NC5zdmcgLS0+Cgo8IS0tIEFTU0VUIE5PVCBJTkxJTkVEOiBhc3NldHMvd29ya2VyLmI3NjFmYjExLmpzIC0tPgo8L2JvZHk+CiAgICAgICAgPC9odG1sPg==" style="border:0;margin:0;width: 1024px;height:1024px;" />
