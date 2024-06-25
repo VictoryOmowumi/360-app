@@ -20,8 +20,13 @@ const Step3 = ({ showConfirmModal}) => {
   return (
     <div>
       <div>
-        {assessmentType === "Review" ? (
-          <div className="flex flex-col gap-4 border">
+        {assessmentType === 1 ? (
+          <div className="flex flex-col gap-4 border"
+            style={{
+              borderColor: theme === "dark" ? "#2d3748" : "#e2e8f0",
+            
+            }}
+          >
             <div
               className="flex gap-5 flex-col px-4 shadow-sm rounded-md"
               style={{
@@ -54,7 +59,11 @@ const Step3 = ({ showConfirmModal}) => {
                   backgroundColor: theme === "dark" ? "#1d2630" : "",
                 }}
               >
-                <thead className="bg-gray-400 rounded-md">
+                <thead className=" rounded-md"
+                  style={{
+                    backgroundColor: theme === "dark" ? "#1d2630" : "",
+                  }}
+                >
                   <tr>
                     <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">
                       Responder

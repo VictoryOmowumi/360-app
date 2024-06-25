@@ -25,15 +25,15 @@ const DeleteModal = ({
         >
             <h2 className="text-xl font-semibold mb-4">{title}</h2>
             <p className="text-sm mb-4">{message}</p>
-            <div className="flex justify-end gap-4 mt-5">
+            <div className="flex justify-center gap-4 mt-5">
             <button
                 onClick={onClose}
-                className="px-4 py-2 text-sm text-white bg-red-500 rounded-md"
+                className="px-4 py-2 text-sm rounded-md border text-blue-500 hover:bg-blue-500 hover:text-white transition-colors"
             >
                 Cancel
             </button>
             <button
-                className={`px-4 py-2 text-sm text-white rounded-md`}
+                className={`px-4 py-2 text-sm text-white bg-red-500 rounded-md`}
                 style={{
                 backgroundColor: themeColor,
                 }}

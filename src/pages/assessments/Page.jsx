@@ -8,12 +8,14 @@ import { assessments } from "../../data/assessments";
 import baseUrl from "../../baseUrl";
 import { Link } from "react-router-dom";
 import DeleteModal from "../../components/DeleteModal";
+import AssessmentTab from "../../components/AssessmentTab";
 const Page = () => {
   const { theme, themeColor } = useContext(ThemeContext);
   const { loading, error } = useFetch(`${baseUrl}applications`);
   const [searchTerm, setSearchTerm] = useState("");
   const [activeMenu, setActiveMenu] = useState(null);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [activeTab, setActiveTab] = useState("All");
   const handleShowMenu = (id) => {
     setActiveMenu((prev) => (prev === id ? null : id));
   };
@@ -29,6 +31,10 @@ const Page = () => {
     });
   };
 
+  const handleCloseDeleteModal = () => {
+    setActiveMenu(null);
+    setShowDeleteModal(false);
+  };
 
 
 
@@ -39,7 +45,7 @@ const Page = () => {
       case "Pending":
         return "orange";
       case "In Progress":
-        return "blue";
+        return "#3481fd";
       default:
         return "black";
     }
@@ -198,6 +204,9 @@ const Page = () => {
           Showing {filteredAssessments.length} of {assessments.length}{" "}
           assessments
         </p>
+
+        <AssessmentTab activeTab={activeTab} setActiveTab={setActiveTab} />
+
         {filteredAssessments.length > 0 ? (
           <div style={{ width: "100%" }}>
             <DataGrid
@@ -222,7 +231,7 @@ const Page = () => {
             <DeleteModal
               title="Delete Assessment"
               message="Are you sure you want to delete this assessment?"
-              onClose={() => setShowDeleteModal(false)}
+              onClose={handleCloseDeleteModal}
               onConfirm={handleDelete}
             />
           )

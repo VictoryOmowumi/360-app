@@ -20,7 +20,11 @@ const ReviewForm = ({
     addResponder,
     responderList,
     removeResponder,
-    isSavingSubject
+    isSavingSubject,
+    cycleLoading,
+    roleLoading,
+    cycleError,
+    roleError,
 }) => {
 
 
@@ -72,6 +76,8 @@ const ReviewForm = ({
               style={{
                 color: "",
               }}
+              loading={cycleLoading}
+              error={cycleError}
             >
               <MenuItem value="">Select Review Cycle</MenuItem>
               {cycleData.map((cycle) => (
@@ -121,6 +127,8 @@ const ReviewForm = ({
               style={{
                 color: "",
               }}
+              error={roleError}
+              loading={roleLoading}
             >
               <MenuItem value="">Select Responder Role</MenuItem>
               {roleData.map((role) => (

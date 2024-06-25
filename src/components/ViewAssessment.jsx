@@ -180,16 +180,14 @@ const ViewAssessment = () => {
               </h1>
             </div>
             <div
-              className="px-3 py-2 flex justify-center items-center  gap-2 rounded bg-white"
-              style={{
-                color: getStatusColor(assessment.status),
-              }}
+              className="px-3 py-2 flex justify-center items-center  gap-2 rounded "
+              
             >
-              {assessment.status}
+             
               {assessment.status === "Completed" ? (
-                <CheckCircle2 size={24} />
+                <CheckCircle2 size={32} />
               ) : (
-                <CircleDashed size={24} />
+                <CircleDashed size={32} />
               )}
             </div>
           </div>

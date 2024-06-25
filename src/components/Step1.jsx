@@ -1,15 +1,19 @@
-import React, { useContext } from "react";
+import React, { useContext} from "react";
 import AssessmentContext from "../context/AssessmentContext";
 import ThemeContext from "../context/ThemeContext";
 import useFetch from "../hooks/useFetch";
 import baseUrl from "../baseUrl";
+import { Controller } from "react-hook-form";
+import { TextField, Select, MenuItem } from "@mui/material";
+import { questionnaires } from "../data/questionnaires";
 const Step1 = () => {
-  const { assessmentType, handleAssessmentTypeChange, nextStep } =
+  const { assessmentType, handleAssessmentTypeChange, nextStep, control } =
     useContext(AssessmentContext);
   const { theme, themeColor } = useContext(ThemeContext);
-  const { data, loading, error } = useFetch(
-    `${baseUrl}CyclesAndRoles/api/CyclesAndRoles/GetQuestionnaireTypes`
+  const { data, loading, error } = useFetch( `${baseUrl}CyclesAndRoles/api/CyclesAndRoles/GetQuestionnaireTypes`
   );
+
+
 
   if (loading) return <p>Loading...</p>;
 
@@ -21,48 +25,108 @@ const Step1 = () => {
         color: theme === "dark" ? "#f0f0f0" : "#444",
       }}
     >
-      <h2 className="text-2xl mb-4">Select Assessment Type</h2>
-      <form className="flex gap-4 w-full flex-col">
-        {data.map((item) => (
-          <div
-            key={item.code}
-            className="flex items-center ps-4 border  rounded "
-            style={{
-              borderColor: theme === "dark" ? "gray" : "",
-            }}
-          >
-            <input
-              id={item.description.toLowerCase()}
-              type="radio"
-              value={item.description}
-              checked={assessmentType === item.description}
-              onChange={handleAssessmentTypeChange}
-              style={{ "--clr": themeColor }}
-              className="w-4 h-4 text-blue-600  border-gray-300 focus:outline-none dark:bg-gray-700 dark:border-gray-600"
-            />
-            <label
-              htmlFor={item.description.toLowerCase()}
-              className="w-full py-4 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-              style={{
-                color: theme === "dark" ? "#f5f5f5" : "",
-              }}
-            >
-              {item.description}
-            </label>
-          </div>
-        ))}
+  
+      <form className="flex gap-5 w-full flex-col">
+      <div className="flex flex-col gap-2">
+          <label htmlFor="select-questionnaire" className="text-sm">
+            Select Assessment Type
+          </label>
+          <Controller
+            name="assessmentType"
+            control={control}
+            rules={{ required: "Assessment Type is required" }}
+            render={({ field }) => (
+              <Select
+                {...field}
+                id="select-assessment-type"
+                value={assessmentType || field.value}
+                onChange={(e) => {
+                  field.onChange(e);
+                  handleAssessmentTypeChange(e);
+                }}
+                variant="outlined"
+                style={{ width: '100%' }}
+                error={!!field.error}
+              >
+                <MenuItem value="">Select Assessment Type</MenuItem>
+                {data.map((assessmentType) => (
+                  <MenuItem key={assessmentType.code} value={assessmentType.code}>
+                    {assessmentType.description}
+                  </MenuItem>
+                ))}
+              </Select>
+            )}
+          />
+        </div>
+
+        <div className="flex flex-col gap-2">
+          <label htmlFor="assessment-title" className="text-sm">
+            Assessment Title
+          </label>
+          <Controller
+            name="title"
+            control={control}
+            rules={{ required: "Title is required" }}
+            render={({ field }) => (
+              <TextField
+                {...field}
+                id="assessment-title"
+                variant="outlined"
+                value={field.value}
+                onChange={(e) => {
+                  field.onChange(e);
+                  
+                }}
+                style={{ width: '100%' }}
+                error={!!field.error}
+                helperText={field.error ? field.error.message : null}
+              />
+            )}
+          />
+        </div>
+
+        <div className="flex flex-col gap-2">
+          <label htmlFor="select-questionnaire" className="text-sm">
+            Select Questionnaire
+          </label>
+          <Controller
+            name="questionnaire"
+            control={control}
+            rules={{ required: "Questionnaire is required" }}
+            render={({ field }) => (
+              <Select
+                {...field}
+                id="select-questionnaire"
+                value={field.value}
+                onChange={(e) => {
+                  field.onChange(e);
+                 
+                }}
+                variant="outlined"
+                style={{ width: '100%' }}
+                error={!!field.error}
+              >
+                <MenuItem value="">Select Questionnaire</MenuItem>
+                {questionnaires.map((questionnaire) => (
+                  <MenuItem key={questionnaire.id} value={questionnaire.id}>
+                    {questionnaire.title}
+                  </MenuItem>
+                ))}
+              </Select>
+            )}
+          />
+        </div>
       </form>
 
       <div className="flex justify-end mt-4">
         <button
-           className="group relative inline-flex items-center overflow-hidden rounded  px-8 py-3"
+          className="group relative inline-flex items-center overflow-hidden rounded  px-8 py-3"
           style={{
             backgroundColor: themeColor,
             color: theme === "dark" ? "#f5f5f5" : "#f5f5f5",
           }}
           onClick={nextStep}
         >
-         
           <span className="absolute -end-full transition-all group-hover:end-4">
             <svg
               className="size-5 rtl:rotate-180"
@@ -80,7 +144,7 @@ const Step1 = () => {
             </svg>
           </span>
           <span className=" font-medium transition-all group-hover:me-4">
-            Next
+            Save
           </span>
         </button>
       </div>

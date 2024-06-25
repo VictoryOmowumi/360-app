@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import ThemeContext from "../context/ThemeContext";
 import Step1 from "./Step1";
 import Step2 from "./Step2";
@@ -37,7 +37,7 @@ const CreateAssessment = () => {
       </h1>
 
       <div
-        className="flex w-full rounded p-2"
+        className="flex w-full rounded p-2 "
         style={{
           backgroundColor: theme === "dark" ? "#1b1c1f" : "#f0f0f0",
         }}
@@ -62,7 +62,7 @@ const CreateAssessment = () => {
                 >
                   1
                 </span>
-                <span className="hidden sm:block"> Select Assessment Type</span>
+                <span className="hidden sm:block"> Create Assessment</span>
               </li>
 
               <li
@@ -102,7 +102,7 @@ const CreateAssessment = () => {
                 >
                   3
                 </span>
-                <span className="hidden sm:block"> Review Information </span>
+                <span className="hidden sm:block"> Review & Send</span>
               </li>
             </ol>
           </div>

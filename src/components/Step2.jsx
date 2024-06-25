@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext, useState } from "react";
 import AssessmentContext from "../context/AssessmentContext";
 import TextField from "@mui/material/TextField";
 import axios from "axios";
@@ -7,6 +7,7 @@ import ThemeContext from "../context/ThemeContext";
 import useFetch from "../hooks/useFetch";
 import ReviewForm from "./ReviewForm";
 import SurveyForm from "./SurveyForm";
+import { questionnaires } from "../data/questionnaires";
 const Step2 = () => {
   const {
     assessmentType,
@@ -21,6 +22,9 @@ const Step2 = () => {
     setError,
     clearErrors,
     isSavingSubject,
+    // loadDraft, 
+    saveDraft, // function to save draft
+    draftId, // current draft ID
   } = useContext(AssessmentContext);
   const { themeColor, theme } = useContext(ThemeContext);
   const {
@@ -36,9 +40,12 @@ const Step2 = () => {
   const [subjectOptions, setSubjectOptions] = useState([]);
   const [subjectLoading, setSubjectLoading] = useState(false);
 
-  useEffect(() => {
-    fetchSubjects("");
-  }, []);
+  // useEffect(() => {
+  //   fetchSubjects("");
+  //   if (draftId) {
+  //     loadDraft(draftId); 
+  //   }
+  // }, [draftId]);
 
   // Fetch subjects
   const fetchSubjects = async (searchTerm) => {
@@ -110,14 +117,14 @@ const Step2 = () => {
   return (
     <div>
       <h2 className="text-2xl mb-5">
-        {assessmentType === "Review"
+        {assessmentType === 1
           ? "Review Assessment"
-          : assessmentType === "Survey"
+          : assessmentType === 2
           ? "Survey Assessment"
           : "Feedback Assessment"}
       </h2>
       <form>
-        {assessmentType === "Review" && (
+        {assessmentType === 1 && (
           <ReviewForm
             theme={theme}
             control={control}
@@ -135,9 +142,14 @@ const Step2 = () => {
             subjectOptions={subjectOptions}
             subjectLoading={subjectLoading}
             fetchSubjects={fetchSubjects}
+            questionnaires={questionnaires}
+            cycleLoading={cycleLoading}
+            roleLoading={roleLoading}
+            cycleError={cycleError}
+            roleError={roleError}
           />
         )}
-        {assessmentType === "Survey" && (
+        {assessmentType === 2 && (
           <SurveyForm
             control={control}
             errors={errors}
@@ -148,7 +160,7 @@ const Step2 = () => {
             clearErrors={clearErrors}
           />
         )}
-        {assessmentType === "Feedback" && (
+        {assessmentType === 3 && (
           <div>
             <label>
               Select Feedback:
@@ -185,40 +197,41 @@ const Step2 = () => {
           </div>
         )}
         <div className="flex justify-between gap-4 mt-6 mr-5">
-        <div className="flex justify-start mt-4">
-          <button
-            type="button"
-            className="group relative inline-flex items-center overflow-hidden rounded  px-8 py-3"
-            style={{
-              color: themeColor,
-              border: `1px solid ${themeColor}`,
-            }}
-            onClick={prevStep}
-          >
-       <span className="absolute -start-full transition-all group-hover:start-4">
-    <svg
-      className="size-5 rotate-[-180deg]"
-      xmlns="http://www.w3.org/2000/svg"
-              
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M17 8l4 4m0 0l-4 4m4-4H3"
-                />
-              </svg>
-            </span>
-            <span className="text font-medium transition-all group-hover:ms-4">
-              {" "}
-              Back{" "}
-            </span>
-          </button>
-        </div>
-          <div className="flex justify-end mt-4">
+          <div className="flex justify-start mt-4">
+            <button
+              type="button"
+              className="group relative inline-flex items-center overflow-hidden rounded  px-8 py-3"
+              style={{
+                color: themeColor,
+                border: `1px solid ${themeColor}`,
+              }}
+              onClick={prevStep}
+            >
+              <span className="absolute -start-full transition-all group-hover:start-4">
+                <svg
+                  className="size-5 rotate-[-180deg]"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M17 8l4 4m0 0l-4 4m4-4H3"
+                  />
+                </svg>
+              </span>
+              <span className="text font-medium transition-all group-hover:ms-4">
+                {" "}
+                Back{" "}
+              </span>
+            </button>
+          </div>
+          <div className="flex gap-5 justify-end mt-4">
+        
+         
             <button
               className="group relative inline-flex items-center overflow-hidden rounded  px-8 py-3"
               style={{
@@ -248,11 +261,13 @@ const Step2 = () => {
                 {isSavingSubject ? "Saving..." : "Next"}
               </span>
             </button>
+          
           </div>
         </div>
+      
       </form>
     </div>
   );
-};
+}
 
 export default Step2;
