@@ -27,7 +27,7 @@ const CreateAssessment = () => {
       }}
     >
       <h1
-        className="text-3xl mb-4"
+        className="text-3xl  mb-4"
         style={{
           color: theme === "dark" ? "#f0f0f0" : "#444",
         }}

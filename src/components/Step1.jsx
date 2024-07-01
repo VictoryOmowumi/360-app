@@ -39,7 +39,7 @@ const Step1 = () => {
               <Select
                 {...field}
                 id="select-assessment-type"
-                value={assessmentType || field.value}
+                value={field.value || ""}
                 onChange={(e) => {
                   field.onChange(e);
                   handleAssessmentTypeChange(e);
@@ -64,7 +64,7 @@ const Step1 = () => {
             Assessment Title
           </label>
           <Controller
-            name="title"
+            name="assessmentTitle"
             control={control}
             rules={{ required: "Title is required" }}
             render={({ field }) => (
@@ -72,7 +72,7 @@ const Step1 = () => {
                 {...field}
                 id="assessment-title"
                 variant="outlined"
-                value={field.value}
+                value={field.value || ""}
                 onChange={(e) => {
                   field.onChange(e);
                   
@@ -97,7 +97,7 @@ const Step1 = () => {
               <Select
                 {...field}
                 id="select-questionnaire"
-                value={field.value}
+                value={field.value || ""}
                 onChange={(e) => {
                   field.onChange(e);
                  
@@ -120,7 +120,7 @@ const Step1 = () => {
 
       <div className="flex justify-end mt-4">
         <button
-          className="group relative inline-flex items-center overflow-hidden rounded  px-8 py-3"
+          className="group  relative inline-flex items-center overflow-hidden rounded  px-8 py-3"
           style={{
             backgroundColor: themeColor,
             color: theme === "dark" ? "#f5f5f5" : "#f5f5f5",

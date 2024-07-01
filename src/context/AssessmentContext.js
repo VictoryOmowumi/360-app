@@ -78,9 +78,18 @@ export const AssessmentProvider = ({ children }) => {
   //   }
   // };
 
-  const nextStep = () => {
+  const user = localStorage.getItem("user")
+  const userName = JSON.parse(user).samAccountName;
 
+
+  const nextStep = () => {
+    
+    // add the user as created by to the values
+    setValue("createdBy", userName);
+    
+    
     const values = getValues();
+
     console.log(values);
 
     setStep((prev) => prev + 1);

@@ -46,7 +46,7 @@ const ReviewForm = ({
               {...field}
               options={subjectOptions}
               getOptionLabel={(option) => option}
-              loading={subjectLoading}
+              loading={subjectLoading ? true : false}
               onInputChange={(_, value) => fetchSubjects(value)}
               style={{
                 color: "",

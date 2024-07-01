@@ -54,7 +54,11 @@ const Step2 = () => {
       const response = await axios.get(
         `${baseUrl}Subject/api/Subject/GetSubjectName/${searchTerm}`
       );
-      setSubjectOptions(response.data);
+      const uniqueSubjectOptions = response.data.map((options, index)=> ({
+        id: index,
+        label: options
+      }))
+      setSubjectOptions(uniqueSubjectOptions);
     } catch (error) {
       console.error("Error fetching subjects:", error);
     } finally {
